@@ -1,22 +1,46 @@
 {
     extends:
         [
-            'stylelint-config-standard',
+            'stylelint-prettier',
+
             'stylelint-config-prettier',
+            'stylelint-config-standard',
             'stylelint-prettier/recommended',
-            # 'stylelint-config-standard-scss',
-            # 'stylelint-config-prettier-scss',
+            'stylelint-config-standard-scss',
+            'stylelint-config-prettier-scss',
+
+            'stylelint-config-styled-components',
+            'stylelint-config-rational-order',
+            'stylelint-config-clean-order',
         ],
 
+    'processors':
+        [
+            [
+                'stylelint-processor-styled-components',
+                {
+                    'moduleName': 'styled-components',
+                    'importName': 'default',
+                    'strict': false,
+                    'ignoreFiles': [],
+                    'parserPlugins':
+                        [
+                            'jsx',
+                            ['decorators', { 'decoratorsBeforeExport': true }],
+                            'classProperties',
+                            'exportExtensions',
+                            'functionBind',
+                            'functionSent',
+                        ],
+                },
+            ],
+        ],
+
+    plugins: ['stylelint-order', 'stylelint-scss'],
     rules:
         {
-            # 'prettier/prettier': null,
-
-            'rule-empty-line-before': ['always', { 'ignore': [
-                                'after-comment',
-                                'first-nested',
-                                # 'inside-single-line-block',
-                            ] }],
+            'rule-empty-line-before':
+                ['always', { 'ignore': ['after-comment', 'first-nested'] }],
             'at-rule-empty-line-before':
                 [
                     'always',
@@ -45,34 +69,31 @@
                     },
                 ],
 
-            # 'scss/double-slash-comment-empty-line-before':
-            #     [
-            #         'always',
-            #         {
-            #             ignore:
-            #                 [
-            #                     'between-comments',
-            #                     'stylelint-commands',
-            #                     'inside-block',
-            #                 ],
-            #         },
-            #     ],
-            # 'scss/dollar-variable-empty-line-before': null,
+            'scss/comment-no-empty': null,
+            'scss/at-import-partial-extension': null,
+            'scss/dollar-variable-empty-line-before': null,
+            'scss/double-slash-comment-empty-line-before':
+                [
+                    'always',
+                    {
+                        ignore:
+                            [
+                                'between-comments',
+                                'stylelint-commands',
+                                'inside-block',
+                            ],
+                    },
+                ],
 
-            'selector-class-pattern': null,
-
-            'length-zero-no-unit': [null, { ignore: ['custom-properties'] }],
-            'block-no-empty': null,
-            'color-function-notation': null,
-            'no-missing-end-of-source-newline': null,
-
-            # 'scss/at-import-partial-extension': null,
-            # 'scss/comment-no-empty': null,
-
-            'no-duplicate-selectors': null,
-            'font-family-no-missing-generic-family-keyword': null,
             'font-family-name-quotes': 'always-unless-keyword',
-
+            'length-zero-no-unit': [null, { ignore: ['custom-properties'] }],
             'function-name-case': ['lower', { ignoreFunctions: ['MAX'] }],
+            'font-family-no-missing-generic-family-keyword': null,
+            'no-missing-end-of-source-newline': null,
+            'color-function-notation': null,
+            'selector-class-pattern': null,
+            'no-duplicate-selectors': null,
+            'block-no-empty': null,
         },
+    # syntax: 'scss',
 }
