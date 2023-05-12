@@ -1,6 +1,7 @@
 # Интерфейс поиска пользователей
 
-Данные по пользователям берем с https://api.github.com/search/users?q={имя пользователя} 
+Данные по пользователям взяты с https://api.github.com/search/users?q=`имя пользователя`
+
 (документация https://developer.github.com/v3/search/#search-users)
 
 ## Детали реализации:
