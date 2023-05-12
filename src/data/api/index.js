@@ -4,8 +4,8 @@ export const BASE_API_URL = 'https://api.github.com'
 
 const USES_TAG = { type: 'TRACKS', id: 'LIST' }
 
-export const signApi = createApi({
-    reducerPath: 'sign',
+export const github = createApi({
+    reducerPath: 'github',
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_API_URL,
     }),
@@ -36,5 +36,5 @@ export const signApi = createApi({
     }),
 })
 
-export default signApi
-export const { useGetAllUsersQuery } = signApi
+export default github
+export const { useGetAllUsersQuery } = github

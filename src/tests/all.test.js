@@ -1,10 +1,10 @@
-import UnitTests from './UnitTests'
+import UnitTests from './Unit'
 
-import { consoleControl } from './config'
+import { consoleControl } from './settings'
 
 beforeEach(consoleControl)
 afterEach(consoleControl)
 
 describe('All tests', () => {
-    describe('Unit-tests', UnitTests)
+    describe('Unit tests', UnitTests)
 })

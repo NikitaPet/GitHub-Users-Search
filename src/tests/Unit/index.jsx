@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import SortPanel from 'app/SortPanel'
 
-import render, { testContext } from './setting/render'
+import render, { testContext } from './settings/render'
 
 export default () => {
     describe('<App />', AppTest)
@@ -14,10 +14,17 @@ const AppTest = () => {
 }
 
 const SortPanelTest = () => {
-    const initState = { on: false, ascending: false }
+    const initState = { on: false, ascending: null }
     const setState = (newState) => (sorting.state = newState)
     const sorting = { state: initState, setState }
     const testContextValue = { sorting }
+
+    const mockButtonClick = (buttonFunc) => {
+        sorting.setState = buttonFunc
+        render(<SortPanel testContext={testContext} />, { testContextValue })
+        const button = screen.getByRole('button')
+        fireEvent.click(button)
+    }
 
     it('TEST #1: should call the function «setSorting» on button click', () => {
         const mockFunc = jest.fn()
@@ -36,11 +43,4 @@ const SortPanelTest = () => {
         const { on, ascending } = sorting.state
         expect(on && !ascending).toBe(true)
     })
-
-    const mockButtonClick = (buttonFunc) => {
-        sorting.setState = buttonFunc
-        render(<SortPanel testContext={testContext} />, { testContextValue })
-        const button = screen.getByRole('button')
-        fireEvent.click(button)
-    }
 }

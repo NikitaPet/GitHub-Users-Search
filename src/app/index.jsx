@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Provider } from 'react-redux'
-import store from 'back/store'
+import store from 'data'
 
 import GlobalStyle from './styles/global'
 import { Wrapper } from './styles'

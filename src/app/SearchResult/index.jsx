@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import { useGetAllUsersQuery } from 'back/services/signApi'
+import { useGetAllUsersQuery } from 'data/api'
 import { appContext } from 'app'
 
 import * as Styled from './style'
