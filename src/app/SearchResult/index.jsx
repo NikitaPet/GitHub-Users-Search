@@ -1,6 +1,6 @@
 import React, { useContext, useState, useMemo } from 'react'
 
-import Delay from 'app/components/Delay'
+import Delay from 'modules/animations/Delay'
 import { useGetUsersQuery } from 'data/api'
 import { appContext } from 'app'
 
