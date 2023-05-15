@@ -1,65 +1,54 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useMemo } from 'react'
 
-import { useGetAllUsersQuery } from 'data/api'
+import Delay from 'app/components/Delay'
+import { useGetUsersQuery } from 'data/api'
 import { appContext } from 'app'
 
-import * as Styled from './style'
+import * as Styled from './styles'
 
 import Pagination from './Pagination'
 import UserItem from './UserItem'
+import Message from './Message'
 
 export default () => {
     const { reqLogin } = useContext(appContext)
-    return reqLogin.state ? (
-        <ResultDataBox />
-    ) : (
-        <Message>введите запрос для получения данных</Message>
-    )
+
+    if (reqLogin.state) return <ResultDataBox />
+    else return <Message>введите запрос для получения данных</Message>
 }
 
 const ResultDataBox = () => {
-    const [pageNum, setPageNum] = useState(1)
     const { reqLogin, sorting } = useContext(appContext)
-    const { data, isLoading, error } = useGetAllUsersQuery({
-        reqLogin: reqLogin.state,
-        sorting: sorting.state,
-        pageNum,
-    })
+    const [pageNum, setPageNum] = useState(1)
+    const itemPerPage = 10
+
+    const response = useGetUsersQuery({ reqLogin, sorting, pageNum })
+    const { data, currentData, isLoading, error } = response
 
     if (isLoading && !data) return <Message>поиск...</Message>
-    if (error) return <Error error={error} />
+    if (error) return <Message error>{error}</Message>
     if (!data.items.length) return <Message>ничего не найдено</Message>
 
-    const itemPerPage = 10
-    const items = data.items.map((item) => (
-        <UserItem key={item.id} data={item} />
-    ))
+    const resultCount = data['total_count']
+    const setting = { setPageNum, pageNum, itemPerPage, resultCount }
 
     return (
         <Styled.Wrapper>
-            <Styled.List>{items}</Styled.List>
-            <Pagination
-                setting={{
-                    pageNum,
-                    setPageNum,
-                    itemPerPage,
-                    resultCount: data['total_count'],
-                }}
-            />
+            <Pagination setting={setting} />
+            <List items={data.items} />
+            <Pagination setting={setting} />
         </Styled.Wrapper>
     )
 }
 
-const Message = Styled.Message
-const Error = ({ error }) => {
-    const { status } = error
-    const message =
-        status === 'FETCH_ERROR'
-            ? 'ошибка сети'
-            : error.data?.message || error.error
+const List = ({ items }) => {
     return (
-        <Message>
-            {`Error #${status}:`} <br /> {message}
-        </Message>
+        <Styled.List>
+            {items.map((item, i) => (
+                <Delay delay={i * 50} key={item.id}>
+                    <UserItem data={item} />
+                </Delay>
+            ))}
+        </Styled.List>
     )
 }

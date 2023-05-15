@@ -31,7 +31,7 @@ export const Button = styled('button')`
     gap: 10px;
 
     background-color: transparent;
-    border: 2px solid white;
+    border: 1.5px solid white;
     border-radius: 60px;
 
     color: white;
@@ -43,16 +43,9 @@ export const Button = styled('button')`
 
     transition: all 0.5s ease-out;
 
-    & span {
-        margin-left: 28px;
-        flex-grow: 1;
-        text-align: center;
-    }
-
     &:hover {
-        background-color: white;
+        background-color: #353535;
         transform: scale(1.1);
-        color: black;
     }
 `
 
@@ -60,7 +53,7 @@ export const Detector = styled('div')`
     width: 30px;
     height: 30px;
     border-radius: 30px;
-    background-color: #0088ff;
+    background-color: transparent;
 
     display: flex;
     align-items: center;

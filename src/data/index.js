@@ -10,5 +10,7 @@ const rootReduser = combineReducers({
 export default configureStore({
     reducer: rootReduser,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(github.middleware),
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat(github.middleware),
 })

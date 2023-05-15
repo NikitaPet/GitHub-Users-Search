@@ -11,16 +11,16 @@ export const github = createApi({
     }),
 
     endpoints: (builder) => ({
-        getAllUsers: builder.query({
+        getUsers: builder.query({
             query: ({ reqLogin, sorting, pageNum }) => {
                 let params = { per_page: 10 }
                 if (pageNum) params.page = pageNum
-                if (sorting.on) {
+                if (sorting.state.on) {
                     params.sort = 'repositories'
-                    params.order = sorting.ascending ? 'asc' : 'desc'
+                    params.order = sorting.state.ascending ? 'asc' : 'desc'
                 }
                 const url =
-                    `search/users?q=${reqLogin}+in:login+type:user&` +
+                    `search/users?q=${reqLogin.state}+in:login+type:user&` +
                     new URLSearchParams(params).toString()
 
                 return {
@@ -37,4 +37,4 @@ export const github = createApi({
 })
 
 export default github
-export const { useGetAllUsersQuery } = github
+export const { useGetUsersQuery } = github

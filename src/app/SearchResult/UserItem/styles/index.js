@@ -1,43 +1,11 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled('div')`
-    width: 100%;
-
-    margin-bottom: 40px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-`
-
-export const Message = styled('p')`
-    color: white;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    vertical-align: center;
-    text-align: center;
-    text-transform: uppercase;
-`
-
-export const List = styled('div')`
-    width: 100%;
-    margin-bottom: 40px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    gap: 22px;
-`
+import './animation.css'
 
 export const Item = styled('div')`
     width: 100%;
     height: 160px;
     height: ${(props) => (props.activity ? 'max-content' : '')};
-    margin: ${(props) => (props.activity ? '20px' : '0px')} 0px;
 
     padding: 20px 60px;
     border-radius: 10px;
@@ -55,10 +23,12 @@ export const Item = styled('div')`
     transform: ${(props) => (props.activity ? 'scale(1.05)' : '')};
     background-color: ${(props) => (props.activity ? '#353535' : '')};
 
+    animation: anima 0.4s ease 0s 1 normal forwards;
+
     &:hover {
-        transform: scale(1.05);
         background-color: #353535;
     }
+
     button {
         height: 48px;
         width: 48px;
@@ -93,7 +63,7 @@ export const Item = styled('div')`
     }
 `
 
-export const MainData = styled('div')`
+export const Main = styled('div')`
     width: 100%;
     height: 160px;
 
@@ -121,7 +91,7 @@ export const MainData = styled('div')`
     }
 `
 
-export const DetailData = styled('div')`
+export const Details = styled('div')`
     width: 100%;
 
     display: flex;

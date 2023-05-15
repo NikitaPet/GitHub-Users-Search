@@ -14,8 +14,8 @@ const AppTest = () => {
 }
 
 const SortPanelTest = () => {
-    const initState = { on: false, ascending: null }
     const setState = (newState) => (sorting.state = newState)
+    const initState = { on: false, ascending: null }
     const sorting = { state: initState, setState }
     const testContextValue = { sorting }
 

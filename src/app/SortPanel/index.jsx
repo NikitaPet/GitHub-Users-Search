@@ -1,4 +1,10 @@
 import { useContext } from 'react'
+import {
+    TbCircleArrowUp as ArrowUp,
+    TbCircleArrowDown as ArrowDown,
+} from 'react-icons/tb'
+import { IconContext } from 'react-icons'
+
 import { appContext } from 'app'
 
 import * as Styled from './style'
@@ -23,16 +29,18 @@ export const SortButton = ({ state, setState }) => {
     }
     return (
         <Styled.Button onClick={changeSorting}>
-            по числу репозиториев
-            {on && <Detector>{ascending ? '🠉' : '🠋'}</Detector>}
+            <p> по числу репозиториев </p>
+            {on && <Detector ascending={ascending} />}
         </Styled.Button>
     )
 }
 
-const Detector = ({ children }) => {
+const Detector = ({ ascending }) => {
     return (
-        <Styled.Detector>
-            <p>{children}</p>
-        </Styled.Detector>
+        <IconContext.Provider value={{ color: '#0088ff', size: '32px' }}>
+            <Styled.Detector>
+                <p>{ascending ? <ArrowUp /> : <ArrowDown />}</p>
+            </Styled.Detector>
+        </IconContext.Provider>
     )
 }
