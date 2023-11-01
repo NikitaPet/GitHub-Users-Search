@@ -7,11 +7,10 @@ import * as Styled from './styles'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-export default ({
-    setting: { pageNum, setPageNum, itemPerPage, resultCount },
-}) => {
-    const pageMax = 100
-    const pagesNum = Math.floor(resultCount / itemPerPage) + 1
+export default ({ setting }) => {
+    const { pageNum, pagesNum, setPageNum } = setting
+
+    const pageMax = 10
     const shownPagesNum = pagesNum > pageMax ? pageMax : pagesNum
     const handleChange = (event, value) => setPageNum(value)
 

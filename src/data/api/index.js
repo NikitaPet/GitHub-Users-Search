@@ -12,11 +12,14 @@ export const github = createApi({
 
     endpoints: (builder) => ({
         getUsers: builder.query({
-            query: ({ reqLogin, sorting, pageNum }) => {
-                let params = { per_page: 10 }
+            query: ({ reqLogin, sorting, itemPerApiPage, pageNum = 1 }) => {
+                const sortingMode = sorting.state.sortingMode
+
+                const params = {}
+                params['per_page'] = itemPerApiPage
                 if (pageNum) params.page = pageNum
-                if (sorting.state.on) {
-                    params.sort = 'repositories'
+                if (sortingMode) {
+                    params.sort = sortingMode
                     params.order = sorting.state.ascending ? 'asc' : 'desc'
                 }
                 const url =

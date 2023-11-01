@@ -11,7 +11,7 @@ import SearchResult from './SearchResult'
 
 export default () => {
     const reqLogin = useState('')
-    const sorting = useState({ on: false, ascending: true })
+    const sorting = useState({ sortingMode: null, ascending: null })
 
     const contextValue = { reqLogin, sorting }
     for (const [key, value] of Object.entries(contextValue))

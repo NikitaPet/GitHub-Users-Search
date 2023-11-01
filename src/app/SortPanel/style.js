@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled('div')`
-    height: 100px;
     width: 100%;
+    /* height: 100px; */
 
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     justify-content: start;
     gap: 20px;
 
@@ -17,6 +17,16 @@ export const Wrapper = styled('div')`
         font-size: 16px;
         vertical-align: center;
         text-align: center;
+    }
+
+    & > div {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        gap: 20px;
     }
 `
 

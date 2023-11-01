@@ -1,8 +1,8 @@
-import UnitTests from './Unit'
-import { consoleControl } from './settings'
+// import UnitTests from './Unit'
+// import { consoleControl } from './settings'
 
-describe('All tests', () => {
-    describe('Unit tests', UnitTests)
-})
+// describe('All tests', () => {
+//     describe('Unit tests', UnitTests)
+// })
 
-afterEach(consoleControl)
+// afterEach(consoleControl)

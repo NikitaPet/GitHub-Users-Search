@@ -10,6 +10,8 @@ import Pagination from './Pagination'
 import UserItem from './UserItem'
 import Message from './Message'
 
+import { sortByID } from './funx'
+
 export default () => {
     const { reqLogin } = useContext(appContext)
 
@@ -19,23 +21,39 @@ export default () => {
 
 const ResultDataBox = () => {
     const { reqLogin, sorting } = useContext(appContext)
-    const [pageNum, setPageNum] = useState(1)
-    const itemPerPage = 10
+    const { sortingMode, ascending } = sorting.state
+    const itemPerApiPage = 100
 
-    const response = useGetUsersQuery({ reqLogin, sorting, pageNum })
-    const { data, currentData, isLoading, error } = response
+    const response = useGetUsersQuery({ reqLogin, sorting, itemPerApiPage })
+    const { data, isLoading, error } = response
 
-    if (isLoading && !data) return <Message>поиск...</Message>
+    if (isLoading) return <Message>поиск...</Message>
     if (error) return <Message error>{error}</Message>
-    if (!data.items.length) return <Message>ничего не найдено</Message>
+    if (!data?.items?.length) return <Message>ничего не найдено</Message>
 
-    const resultCount = data['total_count']
-    const setting = { setPageNum, pageNum, itemPerPage, resultCount }
+    let items = Array.from(data.items)
+    if (['id', 'login'].indexOf(sortingMode) + 1) {
+        items = sortByID(items, ascending, sortingMode)
+    }
+    return <Result items={items} />
+}
+
+const Result = ({ items }) => {
+    const resultCount = items.length
+    const itemPerListPage = 10
+    const pagesNum = Math.floor(resultCount / itemPerListPage) + 1
+
+    const [pageNum, setPageNum] = useState(1)
+    const itemsOnList = items.slice(10 * (pageNum - 1), 10 * pageNum)
+
+    const setting = { setPageNum, pageNum, pagesNum }
+
+    if (itemsOnList.length === 0) setPageNum(pagesNum)
 
     return (
         <Styled.Wrapper>
             <Pagination setting={setting} />
-            <List items={data.items} />
+            <List items={itemsOnList} />
             <Pagination setting={setting} />
         </Styled.Wrapper>
     )
