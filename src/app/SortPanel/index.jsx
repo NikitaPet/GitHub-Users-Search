@@ -27,7 +27,7 @@ export default () => {
 
                 <SortButton
                     name={'joined'}
-                    title={'по числу присоединившихся'}
+                    title={'по дате добавления'}
                     sorting={sorting}
                 />
             </div>
